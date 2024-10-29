@@ -11,11 +11,33 @@ module top
     output [6:0] seg // 7seg segments
 );
 
-    // Instantiate the clock divider...
-    // ... wire it up to the scanner
-    // ... wire the scanner to the decoder
+    clock_div clock (
+        .clock(clk),
+        .reset(btnC),
+        .div_clock(DIVIDE_BY)
+    );
 
-    // Wire up the math block into the decoder
+    seven_seg_scanner scanner (
+        .clock(clk),
+        .reset(btnC),
+        .anode(an[3:0])
+    );
+
+    seven_seg_decoder decode (
+        .A(sw[3:0]),
+        .B(sw[7:4]),
+        .AplusB(an[2]),
+        .AminusB(an[3]),
+        .anode(an[3:0]),
+        .segs(seg[6:0])
+    );
+
+    math_block mathy (
+        .A(sw[3:0]),
+        .B(sw[7:4]),
+        .AplusB(an[2]),
+        .AminusB(an[3])
+    );
 
     // Do not forget to wire up resets!!
 
