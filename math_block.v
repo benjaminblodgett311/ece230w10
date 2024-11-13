@@ -5,11 +5,9 @@ module math_block(
     output reg [3:0] AminusB
 );
 
-    always @(*) begin
+   always @(*) begin
         AplusB = A + B;
         AminusB = A - B;
-        end
-
-        
+   end
 
 endmodule
